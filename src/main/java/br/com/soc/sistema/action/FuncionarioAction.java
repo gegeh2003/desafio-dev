@@ -16,6 +16,7 @@ public class FuncionarioAction extends Action {
 	private FuncionarioBusiness business = new FuncionarioBusiness();
 	private FuncionarioFilter filtrar = new FuncionarioFilter();
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
+	private boolean pesquisa;
 	
 	public String todos() {
 		funcionarios.addAll(business.trazerTodosOsFuncionarios());	
@@ -28,6 +29,7 @@ public class FuncionarioAction extends Action {
 			return REDIRECT;
 		
 		funcionarios = business.filtrarFuncionarios(filtrar);
+		pesquisa = true;
 		
 		return SUCCESS;
 	}
@@ -76,5 +78,9 @@ public class FuncionarioAction extends Action {
 
 	public void setFuncionarioVo(FuncionarioVo funcionarioVo) {
 		this.funcionarioVo = funcionarioVo;
+	}
+	
+	public boolean isPesquisa() {
+		return pesquisa;
 	}
 }

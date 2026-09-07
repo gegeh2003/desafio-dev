@@ -69,6 +69,16 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
+							
+							<s:if test="pesquisa">
+							<s:url action ="todosFuncionarios" var="todos"/>
+							
+							<a href="${todos}" class="btn btn-primary">
+								Voltar
+							</a>
+							
+							 </s:if>
+							
 								<s:url action="novoFuncionarios" var="novo"/>
 								
 								<a href="${novo}" class="btn btn-success">
