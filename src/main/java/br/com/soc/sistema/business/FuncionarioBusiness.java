@@ -33,6 +33,10 @@ public class FuncionarioBusiness {
 		
 	}	
 	
+	public void atualizarFuncionario(FuncionarioVo funcionarioVo) {
+	    dao.atualizarFuncionario(funcionarioVo);
+	}
+	
 	public List<FuncionarioVo> filtrarFuncionarios(FuncionarioFilter filter){
 		List<FuncionarioVo> funcionarios = new ArrayList<>();
 		
@@ -63,3 +67,4 @@ public class FuncionarioBusiness {
 		}
 	}
 }
+

@@ -52,6 +52,16 @@ public class FuncionarioAction extends Action {
 		return INPUT;
 	}
 	
+	public String atualizar() {
+
+	    if(funcionarioVo.getRowid() == null)
+	        return REDIRECT;
+
+	    business.atualizarFuncionario(funcionarioVo);
+
+	    return REDIRECT;
+	}
+	
 	public List<OpcoesComboBuscar> getListaOpcoesCombo(){
 		return Arrays.asList(OpcoesComboBuscar.values());
 	}

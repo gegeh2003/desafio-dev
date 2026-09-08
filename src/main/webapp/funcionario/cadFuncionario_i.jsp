@@ -10,7 +10,7 @@
 	<body class="bg-secondary">
 
 		<div class="container">
-			<s:form action="/novoFuncionarios.action">
+			<s:form action="%{funcionarioVo.rowid == null ? '/novoFuncionarios.action' : '/atualizarFuncionarios.action'}">
 
 				<div class="card mt-5">
 					<div class="card-header">
