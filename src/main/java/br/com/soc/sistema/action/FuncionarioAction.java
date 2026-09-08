@@ -62,6 +62,15 @@ public class FuncionarioAction extends Action {
 	    return REDIRECT;
 	}
 	
+	public String excluir() {
+		
+		if(funcionarioVo.getRowid() == null)
+			return REDIRECT;
+		
+		business.excluirFuncionario(funcionarioVo.getRowid());
+			return REDIRECT;
+	}
+	
 	public List<OpcoesComboBuscar> getListaOpcoesCombo(){
 		return Arrays.asList(OpcoesComboBuscar.values());
 	}

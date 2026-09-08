@@ -66,5 +66,10 @@ public class FuncionarioBusiness {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}
 	}
+	
+	public void excluirFuncionario(String rowid) {
+		dao.excluirFuncionario(rowid);
+	}
+	
 }
 

@@ -58,9 +58,16 @@
 										<s:text name="label.editar"/>
 									</a>
 
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
+									<s:url action="excluirFuncionarios" var="excluir">
+										<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
+									</s:url>
+									
+									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao"
+									data-url=<s:property value='%{#excluir}' />
+									onclick="document.getElementById('botaoSimExcluir').href = this.getAttribute('data-url');">
 										<s:text name="label.excluir"/>
 									</a>
+									
 								</td>
 							</tr>
 						</s:iterator>
@@ -115,14 +122,15 @@
 					<s:text name="label.nao"/>
 				</a>
 	        	
-				<s:a id="excluir" class="btn btn-primary" style="width: 75px;">
+				<a id="botaoSimExcluir" href="#" class="btn btn-primary" style="width: 75px;">
 					<s:text name="label.sim"/>
-				</s:a>						
+				</a>						
 		      </div>
 		    </div>		    
 		  </div>
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+		
 	</body>
 </html>

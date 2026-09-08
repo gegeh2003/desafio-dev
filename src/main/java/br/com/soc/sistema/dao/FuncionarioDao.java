@@ -27,9 +27,7 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public void atualizarFuncionario(FuncionarioVo funcionarioVo) {
-	    StringBuilder query = new StringBuilder(
-	        "UPDATE funcionario SET nm_funcionario = ? WHERE rowid = ?"
-	    );
+	    StringBuilder query = new StringBuilder("UPDATE funcionario SET nm_funcionario = ? WHERE rowid = ?");
 
 	    try (
 	        Connection con = getConexao();
@@ -45,6 +43,22 @@ public class FuncionarioDao extends Dao {
 	    } catch (SQLException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	public void excluirFuncionario(String rowid) {
+		StringBuilder query = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
+		
+		try (
+			Connection con =getConexao();
+				PreparedStatement ps = con.prepareStatement(query.toString())
+			){
+				int i = 1;
+				ps.setString(i++, rowid);
+				ps.executeUpdate();
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public List<FuncionarioVo> findAllFuncionarios(){
