@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import br.com.soc.sistema.vo.AgendaVo;
+import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class AgendaDao extends Dao {
 
@@ -32,6 +33,26 @@ public class AgendaDao extends Dao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void atualizarAgenda(AgendaVo agendaVo) {
+	    StringBuilder query = new StringBuilder("UPDATE agenda SET nm_agenda = ?, periodo_disponivel = ? WHERE rowid = ?");
+
+	    try (
+	        Connection con = getConexao();
+	        PreparedStatement ps = con.prepareStatement(query.toString())
+	    ) {
+	        int i = 1;
+
+	        ps.setString(i++, agendaVo.getNome());
+	        ps.setString(i++, agendaVo.getPeriodoDisponivel());
+	        ps.setString(i++, agendaVo.getRowid());
+
+	        ps.executeUpdate();
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 	public List<AgendaVo> findAllAgendas(){
