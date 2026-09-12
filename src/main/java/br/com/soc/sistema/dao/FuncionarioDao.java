@@ -50,7 +50,7 @@ public class FuncionarioDao extends Dao {
 		
 		try (
 			Connection con =getConexao();
-				PreparedStatement ps = con.prepareStatement(query.toString())
+			PreparedStatement ps = con.prepareStatement(query.toString())
 			){
 				int i = 1;
 				ps.setString(i++, rowid);
@@ -115,8 +115,7 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public FuncionarioVo findByCodigo(Integer codigo){
-		StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario ")
-								.append("WHERE rowid = ?");
+		StringBuilder query = new StringBuilder("SELECT rowid id, nm_funcionario nome FROM funcionario ").append("WHERE rowid = ?");
 		
 		try(Connection con = getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())){
