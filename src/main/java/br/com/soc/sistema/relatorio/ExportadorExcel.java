@@ -11,55 +11,54 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import br.com.soc.sistema.vo.RelatorioCompromissoVo;
 
-
 public class ExportadorExcel {
-	
+
 	public byte[] gerarExcel(List<RelatorioCompromissoVo> relatorio) {
 
-        try {
+		try {
 
-            Workbook workbook = new XSSFWorkbook();
+			Workbook workbook = new XSSFWorkbook();
 
-            Sheet sheet = workbook.createSheet("Compromissos");
+			Sheet sheet = workbook.createSheet("Compromissos");
 
-            Row cabecalho = sheet.createRow(0);
+			Row cabecalho = sheet.createRow(0);
 
-            cabecalho.createCell(0).setCellValue("Código Funcionário");
-            cabecalho.createCell(1).setCellValue("Nome Funcionário");
-            cabecalho.createCell(2).setCellValue("Código Agenda");
-            cabecalho.createCell(3).setCellValue("Nome Agenda");
-            cabecalho.createCell(4).setCellValue("Data do Compromisso");
-            cabecalho.createCell(5).setCellValue("Hora do Compromisso");
+			cabecalho.createCell(0).setCellValue("Código Funcionário");
+			cabecalho.createCell(1).setCellValue("Nome Funcionário");
+			cabecalho.createCell(2).setCellValue("Código Agenda");
+			cabecalho.createCell(3).setCellValue("Nome Agenda");
+			cabecalho.createCell(4).setCellValue("Data do Compromisso");
+			cabecalho.createCell(5).setCellValue("Hora do Compromisso");
 
-            int linha = 1;
+			int linha = 1;
 
-            for (RelatorioCompromissoVo compromisso : relatorio) {
+			for (RelatorioCompromissoVo compromisso : relatorio) {
 
-                Row row = sheet.createRow(linha++);
+				Row row = sheet.createRow(linha++);
 
-                row.createCell(0).setCellValue(compromisso.getCodigoFuncionario());
-                row.createCell(1).setCellValue(compromisso.getNomeFuncionario());
-                row.createCell(2).setCellValue(compromisso.getCodigoAgenda());
-                row.createCell(3).setCellValue(compromisso.getNomeAgenda());
-                row.createCell(4).setCellValue(compromisso.getData());
-                row.createCell(5).setCellValue(compromisso.getHorario());
-            }
+				row.createCell(0).setCellValue(compromisso.getCodigoFuncionario());
+				row.createCell(1).setCellValue(compromisso.getNomeFuncionario());
+				row.createCell(2).setCellValue(compromisso.getCodigoAgenda());
+				row.createCell(3).setCellValue(compromisso.getNomeAgenda());
+				row.createCell(4).setCellValue(compromisso.getData());
+				row.createCell(5).setCellValue(compromisso.getHorario());
+			}
 
-            for (int i = 0; i < 6; i++) {
-                sheet.autoSizeColumn(i);
-            }
+			for (int i = 0; i < 6; i++) {
+				sheet.autoSizeColumn(i);
+			}
 
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-            workbook.write(output);
-            workbook.close();
+			workbook.write(output);
+			workbook.close();
 
-            return output.toByteArray();
+			return output.toByteArray();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-        return new byte[0];
-    }
+		return new byte[0];
+	}
 }
