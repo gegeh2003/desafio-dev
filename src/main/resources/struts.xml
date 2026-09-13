@@ -37,6 +37,19 @@
 		<action name="gerarRelatorioCompromissos" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="gerar">
 		<result name="success">/relatorio/relatorioCompromisso.jsp</result>
 		</action>
-    </package>
+		
+		<action name="exportarRelatorioCompromissos" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="exportar">
+		
+		<result name="success" type="stream">
+		<param name="contentType"> application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</param>
+        <param name="inputName">inputStream</param>
+        <param name="contentDisposition">attachment;filename="relatorio-compromissos.xlsx"</param>
+        <param name="bufferSize">1024</param>
+
+      </result>
+		
+	 </action>
+		
+   </package>
 
 </struts>
