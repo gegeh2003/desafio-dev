@@ -44,6 +44,13 @@
 
         <div class="mt-3">
             <button type="submit" class="btn btn-primary">Gerar relatório</button>
+            
+            <s:if test="relatorio !=null && !relatorio.isEmpty()">
+            	<button type="submit" 
+            			formaction="exportarRelatorioCompromissos.action" 
+            			class="btn btn-success" >Exportar Excel</button>
+            
+            </s:if>
         </div>
 
     </s:form>
