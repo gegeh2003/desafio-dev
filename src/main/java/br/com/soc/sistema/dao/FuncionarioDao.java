@@ -46,8 +46,7 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public void excluirFuncionario(String rowid) {
-		 StringBuilder query = new StringBuilder(
-			        "DELETE FROM compromisso WHERE cd_funcionario = ?");
+		 StringBuilder query = new StringBuilder("DELETE FROM compromisso WHERE cd_funcionario = ?");
 		
 		try (
 			Connection con =getConexao();

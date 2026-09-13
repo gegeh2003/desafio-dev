@@ -85,7 +85,8 @@ public class AgendaDao extends Dao {
 	
 	public AgendaVo findByCodigo(Integer codigo) {
 		
-		StringBuilder query = new StringBuilder ("SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda ").append("WHERE rowid = ?");
+		StringBuilder query = new StringBuilder (
+				"SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda ").append("WHERE rowid = ?");
 		
 		try(
 			Connection con = getConexao();
@@ -119,15 +120,28 @@ public class AgendaDao extends Dao {
 		}
 	
 	public void excluirAgenda(String rowid) {
-	StringBuilder query = new StringBuilder("DELETE FROM agenda WHERE rowid = ?");
+	StringBuilder query = new StringBuilder(
+			"SELECT COUNT(*) FROM compromisso WHERE cd_agenda = ?");
 		
 		try (
 			Connection con =getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())
 			){
-				int i = 1;
-				ps.setString(i++, rowid);
-				ps.executeUpdate();
+				ps.setString(1, rowid);
+			
+				try (ResultSet rs = ps.executeQuery()) {
+					
+					if (rs.next() && rs.getInt(1) > 0) {
+			            return;
+					}
+				}
+				
+				PreparedStatement psAgenda = con.prepareStatement(
+						"DELETE FROM agenda WHERE rowid = ?");
+				
+				psAgenda.setString(1, rowid);
+				psAgenda.executeUpdate();
+				psAgenda.close();
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
