@@ -1,59 +1,59 @@
 package br.com.soc.sistema.vo;
 
 public class RelatorioCompromissoVo {
-	
+
 	private String codigoFuncionario;
 	private String nomeFuncionario;
 	private String codigoAgenda;
 	private String nomeAgenda;
 	private String data;
 	private String horario;
-	
-	  public String getCodigoFuncionario() {
-	        return codigoFuncionario;
-	    }
 
-	    public void setCodigoFuncionario(String codigoFuncionario) {
-	        this.codigoFuncionario = codigoFuncionario;
-	    }
+	public String getCodigoFuncionario() {
+		return codigoFuncionario;
+	}
 
-	    public String getNomeFuncionario() {
-	        return nomeFuncionario;
-	    }
+	public void setCodigoFuncionario(String codigoFuncionario) {
+		this.codigoFuncionario = codigoFuncionario;
+	}
 
-	    public void setNomeFuncionario(String nomeFuncionario) {
-	        this.nomeFuncionario = nomeFuncionario;
-	    }
+	public String getNomeFuncionario() {
+		return nomeFuncionario;
+	}
 
-	    public String getCodigoAgenda() {
-	        return codigoAgenda;
-	    }
+	public void setNomeFuncionario(String nomeFuncionario) {
+		this.nomeFuncionario = nomeFuncionario;
+	}
 
-	    public void setCodigoAgenda(String codigoAgenda) {
-	        this.codigoAgenda = codigoAgenda;
-	    }
+	public String getCodigoAgenda() {
+		return codigoAgenda;
+	}
 
-	    public String getNomeAgenda() {
-	        return nomeAgenda;
-	    }
+	public void setCodigoAgenda(String codigoAgenda) {
+		this.codigoAgenda = codigoAgenda;
+	}
 
-	    public void setNomeAgenda(String nomeAgenda) {
-	        this.nomeAgenda = nomeAgenda;
-	    }
+	public String getNomeAgenda() {
+		return nomeAgenda;
+	}
 
-	    public String getData() {
-	        return data;
-	    }
+	public void setNomeAgenda(String nomeAgenda) {
+		this.nomeAgenda = nomeAgenda;
+	}
 
-	    public void setData(String data) {
-	        this.data = data;
-	    }
+	public String getData() {
+		return data;
+	}
 
-	    public String getHorario() {
-	        return horario;
-	    }
+	public void setData(String data) {
+		this.data = data;
+	}
 
-	    public void setHorario(String horario) {
-	        this.horario = horario;
-	    }
+	public String getHorario() {
+		return horario;
+	}
+
+	public void setHorario(String horario) {
+		this.horario = horario;
+	}
 }

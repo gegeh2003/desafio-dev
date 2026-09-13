@@ -58,10 +58,11 @@ public class CompromissoDao extends Dao {
 
 	public List<CompromissoVo> findAllCompromissos() {
 
-		StringBuilder query = new StringBuilder(
-				"SELECT c.rowid id, c.cd_funcionario codigoFuncionario, " + "c.cd_agenda codigoAgenda, "
-						+ "a.periodo_disponivel periodoAgenda, " + "c.data data, c.horario horario "
-						+ "FROM compromisso c " + "INNER JOIN agenda a ON c.cd_agenda = a.rowid");
+		StringBuilder query = new StringBuilder("SELECT c.rowid id, " + "c.cd_funcionario codigoFuncionario, "
+				+ "f.nm_funcionario nomeFuncionario, " + "c.cd_agenda codigoAgenda, " + "a.nm_agenda nomeAgenda, "
+				+ "a.periodo_disponivel periodoAgenda, " + "c.data data, " + "c.horario horario "
+				+ "FROM compromisso c " + "INNER JOIN funcionario f ON c.cd_funcionario = f.rowid "
+				+ "INNER JOIN agenda a ON c.cd_agenda = a.rowid");
 
 		try (Connection con = getConexao();
 				PreparedStatement ps = con.prepareStatement(query.toString());
@@ -75,6 +76,7 @@ public class CompromissoDao extends Dao {
 				vo.setCodigoFuncionario(rs.getString("codigoFuncionario"));
 				vo.setCodigoAgenda(rs.getString("codigoAgenda"));
 				vo.setPeriodoAgenda(rs.getString("periodoAgenda"));
+				vo.setNomeAgenda(rs.getString("nomeAgenda"));
 				vo.setData(rs.getString("data"));
 				vo.setHorario(rs.getString("horario"));
 

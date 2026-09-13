@@ -26,12 +26,10 @@ public class CompromissoBusiness {
 
 		try {
 
-			if (compromissoVo.getCodigoFuncionario().isEmpty() 
-					|| compromissoVo.getCodigoAgenda().isEmpty()
-					|| compromissoVo.getData().isEmpty() 
-					|| compromissoVo.getHorario().isEmpty()) {
+			if (compromissoVo.getCodigoFuncionario().isEmpty() || compromissoVo.getCodigoAgenda().isEmpty()
+					|| compromissoVo.getData().isEmpty() || compromissoVo.getHorario().isEmpty()) {
 
-				throw new IllegalArgumentException("Todos os campos sao obrigatorios");
+				throw new IllegalArgumentException("Todos os campos são obrigatórios");
 			}
 
 			validarHorario(compromissoVo);
@@ -41,7 +39,7 @@ public class CompromissoBusiness {
 			throw e;
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
+			throw new BusinessException("Não foi possível realizar a inclusão do registro");
 		}
 	}
 
@@ -89,7 +87,7 @@ public class CompromissoBusiness {
 			fim = LocalTime.of(18, 0);
 		}
 		if (horario.isBefore(inicio) || horario.isAfter(fim)) {
-			throw new BusinessException("O horario informado nao esta disponivel para a agenda");
+			throw new BusinessException("O horário informado não está disponível");
 		}
 	}
 }
