@@ -29,6 +29,14 @@
             <result name="input">/compromisso/cadCompromisso_i.jsp</result>
         	<result name="redirect" type="redirectAction">todosCompromissos</result>
         </action>
+        
+        <action name="telaRelatorioCompromissos" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="tela">
+		<result name="success">/relatorio/relatorioCompromisso.jsp</result>
+		</action>
+
+		<action name="gerarRelatorioCompromissos" class="br.com.soc.sistema.action.RelatorioCompromissoAction" method="gerar">
+		<result name="success">/relatorio/relatorioCompromisso.jsp</result>
+		</action>
     </package>
 
 </struts>
