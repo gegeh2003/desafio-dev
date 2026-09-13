@@ -64,7 +64,12 @@
 					<tr>
 						<td colspan="6"><s:url action="novoCompromissos" var="novo" />
 
-							<a href="${novo}" class="btn btn-success">Novo</a></td>
+							<a href="${novo}" class="btn btn-success">Novo</a>
+							
+							<s:url action="telaRelatorioCompromissos" var="relatorio" /> <a
+							href="${relatorio}" class="btn btn-primary"> Relatório de compromissos </a>
+								
+						</td>
 					</tr>
 
 				</tfoot>
