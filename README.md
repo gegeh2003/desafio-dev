@@ -22,28 +22,6 @@ Projeto desenvolvido para cadastro e gestão de funcionários, agendas e comprom
 * Apache POI
 * SOAP
 
-## Como executar o projeto
-
-### 1. Clonar o projeto
-
-```bash
-git clone https://github.com/gegeh2003/desafio-dev.git
-```
-
-### 2. Acessar a pasta do projeto
-
-```bash
-cd desafio-dev
-```
-
-### 3. Executar a aplicação
-
-```bash
-mvn jetty:run
-```
-
-Após iniciar o servidor, a aplicação estará disponível pelo endereço configurado no projeto.
-
 ## Estrutura do projeto
 
 ```text
