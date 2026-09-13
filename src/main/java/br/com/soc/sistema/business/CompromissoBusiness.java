@@ -11,9 +11,11 @@ import java.time.LocalTime;
 public class CompromissoBusiness {
 	private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
 	private CompromissoDao dao;
+	private AgendaBusiness agendaBusiness;
 
 	public CompromissoBusiness() {
 		this.dao = new CompromissoDao();
+		this.agendaBusiness = new AgendaBusiness();
 	}
 
 	public List<CompromissoVo> trazerTodosOsCompromissos() {
@@ -63,8 +65,7 @@ public class CompromissoBusiness {
 		dao.excluirCompromisso(rowid);
 	}
 
-	public void validarHorario(CompromissoVo compromissoVo) {
-		AgendaBusiness agendaBusiness = new AgendaBusiness();
+	private void validarHorario(CompromissoVo compromissoVo) {
 
 		AgendaVo agenda = agendaBusiness.buscarAgendaPor(compromissoVo.getCodigoAgenda());
 
