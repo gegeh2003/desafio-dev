@@ -1,101 +1,105 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"  pageEncoding="UTF8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title><s:text name="label.titulo.pagina.relatorio.compromisso" /></title>
+<meta charset="UTF-8">
+<title>Relatório de Compromissos</title>
 
-    <link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
+<link rel='stylesheet'
+	href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
 
-<body>
+<body style="background-color: #29a0b1;">
+	<div class="container">
+		<div class="row mt-5 mb-2">
+			<div class="col-sm p-0">
+				<h2 style="color: blacl;">Relatório de Compromissos</h2>
 
-<div class="container mt-4">
+			</div>
 
-    <h2>Relatório de Compromissos</h2>
+		</div>
 
-    <s:form action="gerarRelatorioCompromissos" method="post">
+		<s:form action="gerarRelatorioCompromissos">
 
-        <div class="row">
+			<div class="input-group">
 
-            <div class="col-md-4">
-                <label for="dataInicial" class="form-label">Data inicial</label>
+				<span class="input-group-text"> <strong>Período</strong>
+				</span>
 
-                <s:textfield
-                    cssClass="form-control"
-                    id="dataInicial"
-                    name="dataInicial"
-                    type="date"/>
-            </div>
+				<s:textfield cssClass="form-control" id="dataInicial"
+					name="dataInicial" type="date" />
 
-            <div class="col-md-4">
-                <label for="dataFinal" class="form-label">Data final</label>
+				<s:textfield cssClass="form-control" id="dataFinal" name="dataFinal"
+					type="date" />
 
-                <s:textfield
-                    cssClass="form-control"
-                    id="dataFinal"
-                    name="dataFinal"
-                    type="date"/>
-            </div>
+				<button class="btn btn-primary" type="submit">
+					<s:text name="label.pesquisar" />
 
-        </div>
+				</button>
+			</div>
 
-        <div class="mt-3">
-            <button type="submit" class="btn btn-primary">Gerar relatório</button>
-            
-            <s:if test="relatorio !=null && !relatorio.isEmpty()">
-            	<button type="submit" 
-            			formaction="exportarRelatorioCompromissos.action" 
-            			class="btn btn-success" >Exportar Excel</button>
-            
-            </s:if>
-        </div>
+			<div class="row mt-3">
+				<table class="table table-light table-striped align-middle">
+					<thead>
+						<tr>
+							<th>Código Funcionário</th>
+							<th>Nome Funcionário</th>
+							<th>Código Agenda</th>
+							<th>Procedimento</th>
+							<th>Data</th>
+							<th>Hora</th>
+						</tr>
+					</thead>
+					<tbody>
+						<s:iterator value="relatorio">
+							<tr>
+								<td>${codigoFuncionario}</td>
+								<td>${nomeFuncionario}</td>
+								<td>${codigoAgenda}</td>
+								<td>${nomeAgenda}</td>
+								<td>${data}</td>
+								<td>${horario}</td>
+							</tr>
+						</s:iterator>
+					</tbody>
 
-    </s:form>
+					<tfoot class="table-secondary">
 
-    <s:if test="relatorio != null && !relatorio.isEmpty()">
+						<tr>
 
-        <hr>
+							<td colspan="6"><s:if
+									test="relatorio != null && !relatorio.isEmpty()">
 
-        <h4>Compromissos encontrados</h4>
+									<button type="submit"
+										formaction="exportarRelatorioCompromissos.action"
+										class="btn btn-success">Exportar Excel</button>
+								</s:if></td>
 
-        <table class="table table-bordered table-striped mt-3">
+						</tr>
 
-            <thead>
-                <tr>
-                    <th>Código Funcionário</th>
-                    <th>Nome Funcionário</th>
-                    <th>Código Agenda</th>
-                    <th>Nome Agenda</th>
-                    <th>Data</th>
-                    <th>Hora</th>
-                </tr>
-            </thead>
+					</tfoot>
 
-            <tbody>
+				</table>
+				<div class="row mt-3 mb-4">
+					<div class="col-sm p-0">
+						<a href="todosCompromissos.action" class="btn btn-primary"><s:text
+								name="label.voltar" /></a>
+					</div>
+				</div>
+			</div>
 
-                <s:iterator value="relatorio">
+		</s:form>
 
-                    <tr>
-                        <td><s:property value="codigoFuncionario"/></td>
-                        <td><s:property value="nomeFuncionario"/></td>
-                        <td><s:property value="codigoAgenda"/></td>
-                        <td><s:property value="nomeAgenda"/></td>
-                        <td><s:property value="data"/></td>
-                        <td><s:property value="horario"/></td>
-                    </tr>
+	</div>
 
-                </s:iterator>
 
-            </tbody>
 
-        </table>
-
-    </s:if>
-
-</div>
+	<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js">
+        </script>
 
 </body>
+
 </html>

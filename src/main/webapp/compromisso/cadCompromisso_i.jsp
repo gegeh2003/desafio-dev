@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
@@ -7,14 +7,14 @@
 
 <meta charset="UTF-8">
 
-<title><s:text name="label.titulo.pagina.cadastro.compromisso" /></title>
+<title>Cadastro de Compromisso</title>
 
 <link rel="stylesheet"
 	href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
 
 </head>
 
-<body class="bg-secondary">
+<body style="background-color: #29a0b1;">
 
 	<div class="container">
 
@@ -33,7 +33,8 @@
 
 					<div class="row align-items-center">
 
-						<label for="id" class="col-sm-2 col-form-label text-center">Código: </label>
+						<label for="id" class="col-sm-2 col-form-label text-center">Código:
+						</label>
 
 						<div class="col-sm-2">
 
@@ -53,7 +54,7 @@
 							<s:select cssClass="form-select" id="funcionario"
 								name="compromissoVo.codigoFuncionario" list="funcionarios"
 								listKey="rowid" listValue="nome" headerKey=""
-								headerValue="Escolha..." />
+								headerValue="%{getText('label.escolha')}" />
 						</div>
 
 					</div>
@@ -66,7 +67,8 @@
 
 							<s:select cssClass="form-select" id="agenda"
 								name="compromissoVo.codigoAgenda" list="agendas" listKey="rowid"
-								listValue="nome" headerKey="" headerValue="Escolha..." />
+								listValue="nome" headerKey=""
+								headerValue="%{getText('label.escolha')}" />
 						</div>
 
 					</div>
@@ -105,10 +107,14 @@
 
 					<div class="form-row">
 
-						<button type="submit" class="btn btn-primary col-sm-4 offset-sm-1">Salvar</button>
+						<button type="submit" class="btn btn-primary col-sm-4 offset-sm-1">
+							<s:text name="label.salvar" />
+						</button>
 
 						<button type="reset"
-							class="btn btn-secondary col-sm-4 offset-sm-2">Limpar Formulário</button>
+							class="btn btn-secondary col-sm-4 offset-sm-2">
+							<s:text name="label.limpar" />
+						</button>
 					</div>
 				</div>
 			</div>

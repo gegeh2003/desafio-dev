@@ -1,116 +1,102 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title><s:text name="label.titulo.pagina.consulta.agenda"/></title>
-<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
+<title>Consulta da Agenda</title>
+<link rel='stylesheet'
+	href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
-<body class="bg-secondary">
+<body style="background-color: #29a0b1;">
 
-<div class="container">
-	<div class="row mt-5">
-		
-		<table class="table table-light table-striped align-middle">
-		
-			<thead>
-				<tr>
-					<th>Código</th>
-					<th>Nome</th>
-					<th>Período Disponível</th>
-					<th class="text-end">Ação</th>
-				</tr>
-			</thead>
-			
-			<tbody>
-				<s:iterator value="agendas">
+	<div class="container">
+		<div class="row mt-5">
+
+			<table class="table table-light table-striped align-middle">
+
+				<thead>
 					<tr>
-						
-						<td>${rowid}</td>
-						<td>${nome}</td>
-						<td>${periodoDisponivel}</td>
-						<td class="text-end">
-						
-							<s:url action="editarAgendas" var="editar">
-								<s:param name="agendaVo.rowid" value="rowid"></s:param>
-							</s:url>
-							
-							<a href="${editar}" class=" btn btn-warning text-white">
-							<s:text name="label.editar"/>
-							</a>
-							
-						
-							<s:url action="excluirAgendas" var="excluir">
-                                <s:param name="agendaVo.rowid" value="rowid"></s:param>
-                            </s:url>
-                            
-                            <a href="#" 
-                               class="btn btn-danger" 
-                               data-bs-toggle="modal" 
-                               data-bs-target="#confirmarExclusao"
-                               data-url="<s:property value="#excluir"/>"
-                               onclick="document.getElementById('botaoSimExcluir').href = this.getAttribute('data-url');">
-								<s:text name="label.excluir"/>
-							</a> 
-				 	 </td>
-				 </tr>
-	 </s:iterator>	
-</tbody>
+						<th>Código</th>
+						<th><s:text name="label.nome" /></th>
+						<th>Período Disponível</th>
+						<th class="text-end"><s:text name="label.acao" /></th>
+					</tr>
+				</thead>
 
-<tfoot class="table-secondary">
-	<tr>
-		<td colspan="4">
-			<s:url action="novoAgendas" var="novo"/>
-		
-		  <a href="${novo}" class="btn btn-success">Novo</a>
-                    </td>
-                </tr>
+				<tbody>
+					<s:iterator value="agendas">
+						<tr>
 
-            </tfoot>
+							<td>${rowid}</td>
+							<td>${nome}</td>
+							<td>${periodoDisponivel}</td>
+							<td class="text-end"><s:url action="editarAgendas"
+									var="editar">
+									<s:param name="agendaVo.rowid" value="rowid"></s:param>
+								</s:url> <a href="${editar}" class=" btn btn-warning"
+								style="color: #d29e00;"> ✏️<s:text name="label.editar" />
+							</a> <s:url action="excluirAgendas" var="excluir">
+									<s:param name="agendaVo.rowid" value="rowid"></s:param>
+								</s:url> <a href="#" class="btn btn-danger" style="color: #800000;"
+								data-bs-toggle="modal" data-bs-target="#confirmarExclusao"
+								data-url="<s:property value="#excluir"/>"
+								onclick="document.getElementById('botaoSimExcluir').href = this.getAttribute('data-url');">
+									🗑️<s:text name="label.excluir" />
+							</a></td>
+						</tr>
+					</s:iterator>
+				</tbody>
 
-        </table>
+				<tfoot class="table-secondary">
+					<tr>
+						<td colspan="4"><s:url action="novoAgendas" var="novo" /> <a
+							href="${novo}" class="btn btn-success">Novo</a></td>
+					</tr>
 
-    </div>
+				</tfoot>
 
-</div>
+			</table>
 
-		<div class="modal fade" 
-	     id="confirmarExclusao"
-	     data-bs-backdrop="static" 
-	     data-bs-keyboard="false"
-	     tabindex="-1" 
-	     aria-labelledby="staticBackdropLabel" 
-	     aria-hidden="true">
-	
-	    <div class="modal-dialog" role="document">
+		</div>
 
-        <div class="modal-content">
+	</div>
 
-            <div class="modal-header">
+	<div class="modal fade" id="confirmarExclusao"
+		data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+		aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
-                <h5 class="modal-title">Confirmar exclusão</h5>
+		<div class="modal-dialog" role="document">
 
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			<div class="modal-content">
 
-            </div>
+				<div class="modal-header">
 
-            <div class="modal-body">
+					<h5 class="modal-title">Confirmar exclusão</h5>
 
-                <span>Deseja realmente excluir este registro?</span>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
 
-            </div>
+				</div>
 
-            <div class="modal-footer">
+				<div class="modal-body">
 
-                <a class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Não</a>
+					<span>Deseja realmente excluir este registro?</span>
 
-                <a id="botaoSimExcluir" href="#" class="btn btn-primary" style="width:75px;">Sim</a>
-            </div>
-        </div>
-    </div>
-</div>
-	
+				</div>
+
+				<div class="modal-footer">
+
+					<a class="btn btn-secondary" data-bs-dismiss="modal"
+						aria-label="Close"><s:text name="label.nao" /></a> <a
+						id="botaoSimExcluir" href="#" class="btn btn-primary"
+						style="width: 75px;"><s:text name="label.sim" /></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 
 </body>
