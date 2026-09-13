@@ -46,17 +46,25 @@ public class FuncionarioDao extends Dao {
 	}
 	
 	public void excluirFuncionario(String rowid) {
-		StringBuilder query = new StringBuilder("DELETE FROM funcionario WHERE rowid = ?");
+		 StringBuilder query = new StringBuilder(
+			        "DELETE FROM compromisso WHERE cd_funcionario = ?");
 		
 		try (
 			Connection con =getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())
 			){
+		
 				int i = 1;
 				ps.setString(i++, rowid);
 				ps.executeUpdate();
 				
-		} catch (SQLException e) {
+				PreparedStatement psFuncionario = con.prepareStatement("DELETE FROM funcionario WHERE rowid = ?");
+				psFuncionario.setString(1, rowid);
+				psFuncionario.executeUpdate();
+				psFuncionario.close();
+				
+						        
+		} catch (SQLException e) {	
 			e.printStackTrace();
 		}
 	}
