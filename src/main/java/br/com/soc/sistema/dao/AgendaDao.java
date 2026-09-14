@@ -1,6 +1,5 @@
 package br.com.soc.sistema.dao;
 
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,146 +7,140 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import br.com.soc.sistema.exception.BusinessException;
 
 import br.com.soc.sistema.vo.AgendaVo;
 
 public class AgendaDao extends Dao {
 
 	public void insertAgenda(AgendaVo agendaVo) {
-		StringBuilder query = new StringBuilder(
-			"INSERT INTO agenda (nm_agenda, periodo_disponivel) values (?, ?)");
-	
-		try(
-			Connection con = getConexao();
-			PreparedStatement ps = con.prepareStatement(query.toString())
-		   ){
-			
+		StringBuilder query = new StringBuilder("INSERT INTO agenda (nm_agenda, periodo_disponivel) values (?, ?)");
+
+		try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
+
 			int i = 1;
-			
-			 ps.setString(i++, agendaVo.getNome());
-		     ps.setString(i++, agendaVo.getPeriodoDisponivel());
-		     
-		     ps.executeUpdate();
-		     
+
+			ps.setString(i++, agendaVo.getNome());
+			ps.setString(i++, agendaVo.getPeriodoDisponivel());
+
+			ps.executeUpdate();
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void atualizarAgenda(AgendaVo agendaVo) {
-	    StringBuilder query = new StringBuilder("UPDATE agenda SET nm_agenda = ?, periodo_disponivel = ? WHERE rowid = ?");
+		StringBuilder query = new StringBuilder(
+				"UPDATE agenda SET nm_agenda = ?, periodo_disponivel = ? WHERE rowid = ?");
 
-	    try (
-	        Connection con = getConexao();
-	        PreparedStatement ps = con.prepareStatement(query.toString())
-	    ){
-	        int i = 1;
+		try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
+			int i = 1;
 
-	        ps.setString(i++, agendaVo.getNome());
-	        ps.setString(i++, agendaVo.getPeriodoDisponivel());
-	        ps.setString(i++, agendaVo.getRowid());
+			ps.setString(i++, agendaVo.getNome());
+			ps.setString(i++, agendaVo.getPeriodoDisponivel());
+			ps.setString(i++, agendaVo.getRowid());
 
-	        ps.executeUpdate();
+			ps.executeUpdate();
 
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	
-	public List<AgendaVo> findAllAgendas(){
-		
-		StringBuilder query = new StringBuilder("SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda");
-		
-		try(
-			Connection con = getConexao();
-			PreparedStatement  ps = con.prepareStatement(query.toString());
-			ResultSet rs = ps.executeQuery()
-			){
-			
+
+	public List<AgendaVo> findAllAgendas() {
+
+		StringBuilder query = new StringBuilder(
+				"SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda");
+
+		try (Connection con = getConexao();
+				PreparedStatement ps = con.prepareStatement(query.toString());
+				ResultSet rs = ps.executeQuery()) {
+
 			List<AgendaVo> agendas = new ArrayList<>();
-			
+
 			while (rs.next()) {
 				AgendaVo vo = new AgendaVo();
 				vo.setRowid(rs.getString("id"));
-				vo.setNome(rs.getString("nome"));	
+				vo.setNome(rs.getString("nome"));
 				vo.setPeriodoDisponivel(rs.getString("periodo"));
-				
+
 				agendas.add(vo);
 			}
 			return agendas;
-			
-		}catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		return Collections.emptyList();
-	}
-	
-	public AgendaVo findByCodigo(Integer codigo) {
-		
-		StringBuilder query = new StringBuilder (
-				"SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda ").append("WHERE rowid = ?");
-		
-		try(
-			Connection con = getConexao();
-		    PreparedStatement ps = con.prepareStatement(query.toString())
-			){
-			
-			int i= 1;
-			ps.setInt(i, codigo);
-			
-			 try(ResultSet rs = ps.executeQuery()){
 
-		            AgendaVo vo = null;
-
-		            while(rs.next()){
-
-		                vo = new AgendaVo();
-
-		                vo.setRowid(rs.getString("id"));
-		                vo.setNome(rs.getString("nome"));
-		                vo.setPeriodoDisponivel(rs.getString("periodo"));
-		            }
-
-		            return vo;
-		        }
-
-		    } catch (SQLException e) {
-		        e.printStackTrace();
-		  }
-
-		    return null;
-		}
-	
-	public void excluirAgenda(String rowid) {
-	StringBuilder query = new StringBuilder(
-			"SELECT COUNT(*) FROM compromisso WHERE cd_agenda = ?");
-		
-		try (
-			Connection con =getConexao();
-			PreparedStatement ps = con.prepareStatement(query.toString())
-			){
-				ps.setString(1, rowid);
-			
-				try (ResultSet rs = ps.executeQuery()) {
-					
-					if (rs.next() && rs.getInt(1) > 0) {
-			            return;
-					}
-				}
-				
-				PreparedStatement psAgenda = con.prepareStatement(
-						"DELETE FROM agenda WHERE rowid = ?");
-				
-				psAgenda.setString(1, rowid);
-				psAgenda.executeUpdate();
-				psAgenda.close();
-				
 		} catch (SQLException e) {
 			e.printStackTrace();
-			}
 		}
-	
+
+		return Collections.emptyList();
 	}
 
+	public AgendaVo findByCodigo(Integer codigo) {
 
+		StringBuilder query = new StringBuilder(
+				"SELECT rowid id, nm_agenda nome, periodo_disponivel periodo FROM agenda ").append("WHERE rowid = ?");
+
+		try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
+
+			int i = 1;
+			ps.setInt(i, codigo);
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				AgendaVo vo = null;
+
+				while (rs.next()) {
+
+					vo = new AgendaVo();
+
+					vo.setRowid(rs.getString("id"));
+					vo.setNome(rs.getString("nome"));
+					vo.setPeriodoDisponivel(rs.getString("periodo"));
+				}
+
+				return vo;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
+	}
+
+	public void excluirAgenda(String rowid) {
+
+		StringBuilder query = new StringBuilder("SELECT COUNT(*) FROM compromisso WHERE cd_agenda = ?");
+
+		try (Connection con = getConexao(); PreparedStatement ps = con.prepareStatement(query.toString())) {
+
+			ps.setString(1, rowid);
+
+			try (ResultSet rs = ps.executeQuery()) {
+
+				if (rs.next() && rs.getInt(1) > 0) {
+
+					throw new BusinessException(
+							"Não e possível excluir esta agenda pois existem compromissos cadastrados para ela");
+				}
+			}
+
+			PreparedStatement psAgenda = con.prepareStatement("DELETE FROM agenda WHERE rowid = ?");
+
+			psAgenda.setString(1, rowid);
+			psAgenda.executeUpdate();
+			psAgenda.close();
+
+		} catch (BusinessException e) {
+
+			throw e;
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+			throw new BusinessException("Não foi possivel excluir a agenda");
+		}
+	}
+}

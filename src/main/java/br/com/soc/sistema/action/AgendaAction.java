@@ -6,6 +6,7 @@ import java.util.List;
 import br.com.soc.sistema.business.AgendaBusiness;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.vo.AgendaVo;
+import br.com.soc.sistema.exception.BusinessException;
 
 public class AgendaAction extends Action {
 
@@ -14,41 +15,70 @@ public class AgendaAction extends Action {
 	private AgendaVo agendaVo = new AgendaVo();
 
 	public String todos() {
+
 		agendas.addAll(business.trazerTodasAsAgendas());
+
 		return SUCCESS;
 	}
 
 	public String novo() {
+
 		if (agendaVo.getNome() == null)
 			return INPUT;
 
-		business.salvarAgenda(agendaVo);
-		return REDIRECT;
+		try {
+			business.salvarAgenda(agendaVo);
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+			addActionError(e.getMessage());
+			return INPUT;
+		}
 	}
 
 	public String editar() {
+
 		if (agendaVo.getRowid() == null)
 			return REDIRECT;
 
-		agendaVo = business.buscarAgendaPor(agendaVo.getRowid());
+		try {
+			agendaVo = business.buscarAgendaPor(agendaVo.getRowid());
+			return INPUT;
 
-		return INPUT;
+		} catch (BusinessException e) {
+			addActionError(e.getMessage());
+			return SUCCESS;
+		}
 	}
 
 	public String atualizar() {
+
 		if (agendaVo.getRowid() == null)
 			return REDIRECT;
 
-		business.atualizarAgenda(agendaVo);
-		return REDIRECT;
+		try {
+			business.atualizarAgenda(agendaVo);
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+			addActionError(e.getMessage());
+			return INPUT;
+		}
 	}
 
 	public String excluir() {
+
 		if (agendaVo.getRowid() == null)
 			return REDIRECT;
 
-		business.excluirAgenda(agendaVo.getRowid());
-		return REDIRECT;
+		try {
+			business.excluirAgenda(agendaVo.getRowid());
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+			addActionError(e.getMessage());
+			return SUCCESS;
+		}
 	}
 
 	public List<AgendaVo> getAgendas() {
@@ -66,4 +96,5 @@ public class AgendaAction extends Action {
 	public void setAgendaVo(AgendaVo agendaVo) {
 		this.agendaVo = agendaVo;
 	}
+
 }

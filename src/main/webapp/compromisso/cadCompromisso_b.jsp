@@ -9,7 +9,9 @@
 <link rel='stylesheet'
 	href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
-<body style="background-color: #29a0b1;">
+<body style="background-color: #cceae8;">
+	<jsp:include page="/cabecalho.jsp" />
+	
 
 	<div class="container">
 		<div class="row mt-5">

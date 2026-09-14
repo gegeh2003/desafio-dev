@@ -6,11 +6,20 @@
 <head>
 <meta charset="UTF8">
 <title>Cadastro da Agenda</title>
+
+<s:if test="hasActionErrors()">
+    <div class="alert alert-danger" role="alert">
+        <strong>Atenção!</strong>
+        <s:actionerror />
+    </div>
+</s:if>
+
 <link rel='stylesheet'
 	href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
 
-<body style="background-color: #29a0b1;">
+<body style="background-color: #cceae8;">
+	<jsp:include page="/cabecalho.jsp" />
 
 	<div class="container">
 		<s:form

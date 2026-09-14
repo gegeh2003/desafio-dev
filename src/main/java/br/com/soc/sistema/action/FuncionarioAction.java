@@ -9,6 +9,7 @@ import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.OpcoesComboBuscar;
 import br.com.soc.sistema.vo.FuncionarioVo;
+import br.com.soc.sistema.exception.BusinessException;
 
 public class FuncionarioAction extends Action {
 
@@ -16,40 +17,64 @@ public class FuncionarioAction extends Action {
 	private FuncionarioBusiness business = new FuncionarioBusiness();
 	private FuncionarioFilter filtrar = new FuncionarioFilter();
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
+
 	private boolean pesquisa;
 
 	public String todos() {
+
 		funcionarios.addAll(business.trazerTodosOsFuncionarios());
 
 		return SUCCESS;
 	}
 
 	public String filtrar() {
+
 		if (filtrar.isNullOpcoesCombo())
 			return REDIRECT;
 
 		funcionarios = business.filtrarFuncionarios(filtrar);
+
 		pesquisa = true;
 
 		return SUCCESS;
 	}
 
 	public String novo() {
+
 		if (funcionarioVo.getNome() == null)
 			return INPUT;
 
-		business.salvarFuncionario(funcionarioVo);
+		try {
 
-		return REDIRECT;
+			business.salvarFuncionario(funcionarioVo);
+
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+
+			addActionError(e.getMessage());
+
+			return INPUT;
+		}
 	}
 
 	public String editar() {
+
 		if (funcionarioVo.getRowid() == null)
 			return REDIRECT;
 
-		funcionarioVo = business.buscarFuncionarioPor(funcionarioVo.getRowid());
+		try {
 
-		return INPUT;
+			funcionarioVo = business.buscarFuncionarioPor(funcionarioVo.getRowid());
+
+			return INPUT;
+
+		} catch (BusinessException e) {
+
+			addActionError(e.getMessage());
+
+			return SUCCESS;
+		}
 	}
 
 	public String atualizar() {
@@ -57,9 +82,18 @@ public class FuncionarioAction extends Action {
 		if (funcionarioVo.getRowid() == null)
 			return REDIRECT;
 
-		business.atualizarFuncionario(funcionarioVo);
+		try {
 
-		return REDIRECT;
+			business.atualizarFuncionario(funcionarioVo);
+
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+
+			addActionError(e.getMessage());
+
+			return INPUT;
+		}
 	}
 
 	public String excluir() {
@@ -67,39 +101,58 @@ public class FuncionarioAction extends Action {
 		if (funcionarioVo.getRowid() == null)
 			return REDIRECT;
 
-		business.excluirFuncionario(funcionarioVo.getRowid());
-		return REDIRECT;
+		try {
+
+			business.excluirFuncionario(funcionarioVo.getRowid());
+
+			return REDIRECT;
+
+		} catch (BusinessException e) {
+
+			addActionError(e.getMessage());
+
+			return SUCCESS;
+		}
 	}
 
 	public List<OpcoesComboBuscar> getListaOpcoesCombo() {
+
 		return Arrays.asList(OpcoesComboBuscar.values());
 	}
 
 	public List<FuncionarioVo> getFuncionarios() {
+
 		return funcionarios;
 	}
 
 	public void setFuncionarios(List<FuncionarioVo> funcionarios) {
+
 		this.funcionarios = funcionarios;
 	}
 
 	public FuncionarioFilter getFiltrar() {
+
 		return filtrar;
 	}
 
 	public void setFiltrar(FuncionarioFilter filtrar) {
+
 		this.filtrar = filtrar;
 	}
 
 	public FuncionarioVo getFuncionarioVo() {
+
 		return funcionarioVo;
 	}
 
 	public void setFuncionarioVo(FuncionarioVo funcionarioVo) {
+
 		this.funcionarioVo = funcionarioVo;
 	}
 
 	public boolean isPesquisa() {
+
 		return pesquisa;
 	}
+
 }
